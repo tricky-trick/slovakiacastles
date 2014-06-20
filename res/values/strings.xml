@@ -2,9 +2,9 @@
 <resources>
 
     <!-- Ukrainian -->
-    <string name="app_name">HU Castles</string>
-    <string name="title_activity_start">HU Castles</string>
-    <string name="title_activity_main">HU Castles</string>
+    <string name="app_name">SK Castles</string>
+    <string name="title_activity_start">SK Castles</string>
+    <string name="title_activity_main">SK Castles</string>
     <string name="title_activity_info"></string>
     <string name="title_activity_places"></string>
     <string name="title_activity_rout"></string>
@@ -37,6 +37,33 @@
     <string name="about_menu_ua">Про нас</string>
     <string name="about_message_ua">Дякуємо, що користуєтеся нашою програмою. Надіємося, що вона Вам подобається. Якщо у Вас є відгуки, побажання чи зауваження, то Ви можете написати їх на електронну адресу </string>
     <string name="about_second_ua"> або через соціальні мережі </string>
+    <!-- Slovak -->
+     <string name="add_place_string_sk">Klikni pre pridanie miesto</string>
+    <string name="dialog_title_string_sk">Nezatvárajte program</string>
+    <string name="you_here_string_sk">Nachádzate sa tu</string>
+    <string name="no_inet_string_sk">Pripojenie k Internetu chýba</string>
+    <string name="no_google_play_services_sk">Google Play Služby chýba</string>
+    <string name="load_string_sk">Súbory na stiahnutie. Čakajte prosím ..</string>
+    <string name="start_button_map_sk">Mapa</string>
+    <string name="start_button_places_sk">Miesta</string>
+    <string name="add_coord_sk">Súradnice: </string>
+    <string name="add_name_sk">Meno:</string>
+    <string name="add_descr_sk">Popis:</string>
+    <string name="add_done_sk">úprava</string>
+    <string name="add_thanks_sk">Ďakujem vám!</string>
+    <string name="description_info_sk">Informácie prevzaté z www.7chudes.in.ua</string>
+    <string name="touch_here_sk">Kliknite tu</string>
+    <string name="change_view_sk">Zmena zobraziť mapu</string>
+    <string name="change_language_sk">Zmeniť jazyk</string>
+    <string name="rta_dialog_title_sk">Hodnotiť tento program</string>
+    <string name="rta_dialog_message_sk">Chcete, aby hodnotenie programu teraz? Váš hlas je pre nás dôležité.</string>
+    <string name="rta_dialog_ok_sk">Tak</string>
+    <string name="rta_dialog_cancel_sk">Nie von</string>
+    <string name="rta_dialog_no_sk">Nie, vďaka</string>
+    <string name="turn_gps_sk">Prosím, zapnite GPS</string>
+    <string name="about_menu_sk">O nás</string>
+    <string name="about_message_sk">Ďakujeme, že používate náš softvér. Dúfame, že sa vám bude páčiť. Ak máte nejaké pripomienky, návrhy alebo pripomienky, môžete kontaktovať prostredníctvom e-mailu </string>
+    <string name="about_second_sk"> alebo prostredníctvom sociálnych sietí </string>
     <!-- Hungarian -->
     <string name="add_place_string_hu">Kattintson ide, hogy egy helyre</string>
     <string name="dialog_title_string_hu">Ne zárja be a programot</string>

@@ -63,6 +63,13 @@ public class MainActivity extends Activity {
 				StartActivity.class);
 		startActivity(i);
 	}
+	
+	public void langSk(View v){
+		updateValue("_sk");
+		Intent i = new Intent(MainActivity.this,
+				StartActivity.class);
+		startActivity(i);
+	}
 
 	private void updateValue(String val) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);

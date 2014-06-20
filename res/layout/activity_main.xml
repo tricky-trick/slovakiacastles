@@ -10,9 +10,21 @@
         android:background="#00CCFF" >
 
         <ImageButton
+            android:id="@+id/imageButtonSk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/slovakia_flag"
+            android:onClick="langSk" />
+
+        <ImageButton
             android:id="@+id/imageButtonHu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/imageButtonSk"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"

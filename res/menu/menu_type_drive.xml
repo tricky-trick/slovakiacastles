@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/action_walk"
+        android:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@drawable/walking_icon"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="walk"/>
+    <item
+        android:id="@+id/action_drive"
+        android:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@drawable/car_icon"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="drive"/>
+</menu>

@@ -1,0 +1,11 @@
+/*.classpath
+/*.project
+/.settings
+/bin
+/gen
+
+/gen
+/project.properties
+/proguard-project.txt
+
+/res/drawable/Thumbs.db

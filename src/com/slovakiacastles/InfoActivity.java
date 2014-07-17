@@ -91,6 +91,16 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			}
 			if (audioFile.contains("null"))
 				audioFile = "audio.mp3";
+			
+			if(description.equals(""))
+			{
+				description = getString(getResources()
+						.getIdentifier(
+								"empty_info" + prefix,
+								"string",
+								getPackageName()));
+			}
+			
 			imageView = (ImageView) findViewById(R.id.imageView1);
 			textTitle = (TextView) findViewById(R.id.textView1);
 			SpannableString spanString = new SpannableString(

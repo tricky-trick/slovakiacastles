@@ -221,6 +221,16 @@ public class MapActivity extends FragmentActivity {
 				String description = it.get(i).toString().split(";")[2];
 				String image = it.get(i).toString().split(";")[3];
 				String distance = it.get(i).toString().split(";")[4];
+				
+				if(description.equals(""))
+				{
+					description = getString(getResources()
+							.getIdentifier(
+									"empty_info" + prefix,
+									"string",
+									getPackageName()));
+				}
+				
 				int distanceMeter = Math
 						.round(Float.parseFloat(distance) * 100) / 100;
 				if (distanceMeter < 1000)

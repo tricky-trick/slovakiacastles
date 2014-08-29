@@ -38,19 +38,27 @@
             android:paddingRight="10dp" />
         -->
 
-        <ImageView
+        <!--  <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY" />-->
+            
+         <Gallery
+            android:id="@+id/gallery1"
+			android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView1"
+            android:layout_below="@+id/gallery1"
             android:layout_centerHorizontal="true"
             android:text=""
             android:textColor="#FFFFFF"

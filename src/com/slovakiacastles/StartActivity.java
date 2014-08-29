@@ -66,7 +66,7 @@ public class StartActivity extends BaseActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		MenuInflater inflater = getMenuInflater();
-		if(prefs.getString("isNew", "1").equals("0"))
+		if(prefs.getString("isNew", "2").equals("3"))
 		{
 			inflater.inflate(R.menu.menu_app, menu);	
 		}
@@ -103,7 +103,7 @@ public class StartActivity extends BaseActivity {
 		}else {
 			i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Denys+Zaiats"));
 			Editor editor = prefs.edit();
-			editor.putString("isNew", "0");
+			editor.putString("isNew", "3");
 			editor.commit();
 		} 
 		startActivity(i);

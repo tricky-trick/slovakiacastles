@@ -1,6 +1,7 @@
 package com.slovakiacastles;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -17,6 +18,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -42,7 +45,6 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 	TextView textTitle;
 	TextView textDescription;
 	TextView textUri;
-	ImageView imageView;
 	SQLiteDatabase db;
 	private MediaController mMediaController;
 	private MediaPlayer mMediaPlayer;
@@ -91,17 +93,37 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			}
 			if (audioFile.contains("null"))
 				audioFile = "audio.mp3";
-			
-			if(description.equals(""))
-			{
-				description = getString(getResources()
-						.getIdentifier(
-								"empty_info" + prefix,
-								"string",
-								getPackageName()));
+
+			if (description.equals("")) {
+				description = getString(getResources().getIdentifier(
+						"empty_info" + prefix, "string", getPackageName()));
 			}
-			
-			imageView = (ImageView) findViewById(R.id.imageView1);
+
+			TranslateAnimation animation = new TranslateAnimation(0.0f, -50.0f,
+	                0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+	        animation.setDuration(2000);  // animation duration 
+	        animation.setRepeatCount(3);  // animation repeat count
+	        animation.setRepeatMode(2); 
+			Gallery gallery = (Gallery) findViewById(R.id.gallery1);
+			gallery.startAnimation(animation);
+			gallery.setSelection(1);
+			gallery.setSpacing(5);
+			LinkedList<Integer> images = new LinkedList<Integer>();
+			images.add(this.getResources().getIdentifier("drawable/" + image,
+					null, this.getPackageName()));
+			for (int i = 1; i < 10; i++) {
+				try {
+					if (this.getResources().getIdentifier(
+							"drawable/" + image + i, null,
+							this.getPackageName()) != 0) {
+						images.add(this.getResources().getIdentifier(
+								"drawable/" + image + i, null,
+								this.getPackageName()));
+					}
+				} catch (Exception e) {
+				}
+			}
+			gallery.setAdapter(new GalleryImageAdapter(this, images));
 			textTitle = (TextView) findViewById(R.id.textView1);
 			SpannableString spanString = new SpannableString(
 					getString(getResources().getIdentifier(
@@ -112,17 +134,15 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 					spanString.length(), 0);
 			spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0,
 					spanString.length(), 0);
-			//textUri = (TextView) findViewById(R.id.textView3);
+			// textUri = (TextView) findViewById(R.id.textView3);
 			// buttonPlay = (ImageButton) findViewById(R.id.button1);
 			// buttonStop = (ImageButton) findViewById(R.id.button2);
 			// buttonPlay.setBackgroundResource(R.drawable.play);
 			// buttonStop.setBackgroundResource(R.drawable.pause);
 			textDescription = (TextView) findViewById(R.id.textView2);
-			imageView.setImageResource(this.getResources().getIdentifier(
-					"drawable/" + image, null, this.getPackageName()));
 			textTitle.setText(title);
 			textDescription.setText(description + "\n\n");
-			//textUri.setText(spanString);
+			// textUri.setText(spanString);
 
 			mMediaPlayer = new MediaPlayer();
 			mMediaController = new MediaController(this);
@@ -153,7 +173,7 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			toast.show();
 			onBackPressed();
 		}
-		
+
 		enableGpsModal(prefix);
 	}
 
@@ -279,12 +299,12 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-//	public void goToMap(View v) {
-//		if (Build.VERSION.SDK_INT <= 15) {
-//			Intent i = new Intent(InfoActivity.this, RoutActivity.class);
-//			i.putExtra("title", textTitle.getText());
-//			startActivity(i);
-//		}
-//	}
+	// public void goToMap(View v) {
+	// if (Build.VERSION.SDK_INT <= 15) {
+	// Intent i = new Intent(InfoActivity.this, RoutActivity.class);
+	// i.putExtra("title", textTitle.getText());
+	// startActivity(i);
+	// }
+	// }
 
 }

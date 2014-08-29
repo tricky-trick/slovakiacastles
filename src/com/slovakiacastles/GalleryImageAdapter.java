@@ -1,5 +1,7 @@
 package com.slovakiacastles;
 
+import java.util.LinkedList;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
@@ -14,19 +16,16 @@ public class GalleryImageAdapter extends BaseAdapter
 {
     private Context mContext;
 
-    private Integer[] mImageIds = {
-            R.drawable.ukraine_flag,
-            R.drawable.poland_flag,
-            R.drawable.unitedkingdom_flag
-    };
+    private LinkedList<Integer> mImageIds;
 
-    public GalleryImageAdapter(Context context) 
+    public GalleryImageAdapter(Context context, LinkedList<Integer> images) 
     {
         mContext = context;
+        mImageIds = images;
     }
 
     public int getCount() {
-        return mImageIds.length;
+        return mImageIds.size();
     }
 
     public Object getItem(int position) {
@@ -45,8 +44,8 @@ public class GalleryImageAdapter extends BaseAdapter
         // TODO Auto-generated method stub
         ImageView i = new ImageView(mContext);
 
-        i.setImageResource(mImageIds[index]);
-        i.setLayoutParams(new Gallery.LayoutParams(500, 500));
+        i.setImageResource(mImageIds.get(index));
+        //i.setLayoutParams(new Gallery.LayoutParams(600, 400));
     
         i.setScaleType(ScaleType.FIT_XY);
 

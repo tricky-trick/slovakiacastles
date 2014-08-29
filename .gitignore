@@ -9,3 +9,4 @@
 /proguard-project.txt
 
 /res/drawable/Thumbs.db
+*.db

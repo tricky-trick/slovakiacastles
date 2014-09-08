@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -38,7 +40,7 @@ public class GalleryImageAdapter extends BaseAdapter
 
 
     // Override this method according to your need
-    @SuppressLint("InlinedApi")
+    @SuppressLint({ "InlinedApi", "NewApi" })
 	public View getView(int index, View view, ViewGroup viewGroup) 
     {
         // TODO Auto-generated method stub
@@ -47,7 +49,9 @@ public class GalleryImageAdapter extends BaseAdapter
         i.setImageResource(mImageIds.get(index));
         //i.setLayoutParams(new Gallery.LayoutParams(600, 400));
     
-        i.setScaleType(ScaleType.FIT_XY);
+        i.setScaleType(ScaleType.CENTER);
+        i.setPadding(0, 0, 0, 0);
+        i.setCropToPadding(true);
 
         return i;
     }

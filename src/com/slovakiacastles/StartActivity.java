@@ -14,19 +14,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
- */
 public class StartActivity extends BaseActivity {
 
 	Button buttonMap;
 	Button buttonPlaces;
 	String prefix;
+	ImageView image;
 	private static final int MAIN_MENU_ID = 1001;
 	private static final int ABOUT_MENU_ID = 1005;
 	private static final int APP_MENU_ID = 1010;
@@ -42,12 +39,17 @@ public class StartActivity extends BaseActivity {
 		prefix = prefs.getString("prefix", "");
 		buttonMap = (Button) findViewById(R.id.localmap);
 		buttonPlaces = (Button) findViewById(R.id.place);
-
+		image = (ImageView) findViewById(R.id.imageView1);
 		buttonMap.setText(getResources().getIdentifier(
 				"start_button_map" + prefix, "string", getPackageName()));
 		buttonPlaces.setText(getResources().getIdentifier(
 				"start_button_places" + prefix, "string", getPackageName()));
 		enableGpsModal(prefix);
+		
+		ScaleAnimation animation = new ScaleAnimation(0.0f, 1.0f,
+                0.0f, 1.0f);
+        animation.setDuration(2000); 
+        image.setAnimation(animation);
 	}
 
 	public void startPlace(View v) {

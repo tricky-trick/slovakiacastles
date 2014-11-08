@@ -76,6 +76,14 @@
             android:autoLink="web"
             android:textSize="20sp" 
             android:textColor="#ffffff"/>
+        
+        <Button
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Share"
+            />
     </RelativeLayout>
 
 </ScrollView>

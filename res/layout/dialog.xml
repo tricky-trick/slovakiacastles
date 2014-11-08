@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageButton
+        android:id="@+id/facebookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/facebook" />
+
+    <ImageButton
+        android:id="@+id/twitterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/facebookButton"
+        android:layout_margin="5dp"
+        android:background="@drawable/twitter" />
+
+    <ImageButton
+        android:id="@+id/instagramButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/twitterButton"
+        android:layout_margin="5dp"
+        android:background="@drawable/instagram" />
+
+</RelativeLayout>

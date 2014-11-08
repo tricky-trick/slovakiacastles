@@ -1,7 +1,14 @@
 package com.slovakiacastles;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+
+import org.brickred.socialauth.android.DialogListener;
+import org.brickred.socialauth.android.SocialAuthAdapter;
+import org.brickred.socialauth.android.SocialAuthError;
+import org.brickred.socialauth.android.SocialAuthListener;
+import org.brickred.socialauth.android.SocialAuthAdapter.Provider;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -10,6 +17,9 @@ import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,12 +28,17 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.MediaController.MediaPlayerControl;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.annotation.SuppressLint;
@@ -33,10 +48,14 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 
 @SuppressWarnings("deprecation")
@@ -53,6 +72,8 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 	ImageButton buttonPlay;
 	ImageButton buttonStop;
 	String prefix;
+	SocialAuthAdapter adapter;
+	boolean status;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -62,6 +83,43 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
+		RelativeLayout relBar = (RelativeLayout) findViewById(R.id.relbar);
+		RelativeLayout zoomBar = (RelativeLayout) findViewById(R.id.zoombar);
+		LinearLayout linearBar = (LinearLayout) findViewById(R.id.linearbar);
+		linearBar.setBackgroundResource(R.drawable.bar_gradient);
+		
+		if (Build.VERSION.SDK_INT >= 11) {
+			linearBar.setAlpha((float) 0.8);
+			relBar.setAlpha((float) 0.8);
+			zoomBar.setAlpha((float) 0.6);
+		}
+
+		// Add Bar to library
+		adapter = new SocialAuthAdapter(new ResponseListener());
+
+		// Add providers
+		adapter.addProvider(Provider.FACEBOOK, R.drawable.facebook);
+		adapter.addProvider(Provider.TWITTER, R.drawable.twitter);
+		adapter.addProvider(Provider.LINKEDIN, R.drawable.linkedin);
+		adapter.addProvider(Provider.EMAIL, R.drawable.gmail);
+
+		// For twitter use add callback method. Put your own callback url here.
+		adapter.addCallBack(Provider.TWITTER, "https://twitter.com/");
+		textDescription = (TextView) findViewById(R.id.textView2);
+
+		// Add keys and Secrets
+		try {
+			adapter.addConfig(Provider.FACEBOOK, "297841130364674",
+					"dc9c59d0c72d4f2533580e80ba4c2a59", null);
+			adapter.addConfig(Provider.TWITTER, "1B8FBZxvW9u9Ps8r2bWVuNwj9",
+					"SeMAWeGCC4SrBf6f66PlgUBc2yliOWwdrcOLKHOAIPX3rdxXWA", null);
+			adapter.addConfig(Provider.LINKEDIN, "778g2um8c3ohar",
+					"vzHUufjGeVI5TE8e", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		adapter.enable(linearBar);
+
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			if (Build.VERSION.SDK_INT >= 15) {
 				ActionBar bar = getActionBar();
@@ -111,19 +169,20 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 				}
 			}
 			Gallery gallery = (Gallery) findViewById(R.id.gallery1);
-			
-			if(images.size() > 1)
-			{
-				TranslateAnimation animation = new TranslateAnimation(0.0f, -50.0f,
-		                0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
-		        animation.setDuration(1000);  // animation duration 
-		        animation.setRepeatCount(1);  // animation repeat count
-		        animation.setRepeatMode(2); 
+
+			if (images.size() > 1) {
+				TranslateAnimation animation = new TranslateAnimation(0.0f,
+						-50.0f, 0.0f, 0.0f); // new
+												// TranslateAnimation(xFrom,xTo,
+												// yFrom,yTo)
+				animation.setDuration(1000); // animation duration
+				animation.setRepeatCount(1); // animation repeat count
+				animation.setRepeatMode(2);
 				gallery.startAnimation(animation);
 				gallery.setSelection(1);
 				gallery.setSpacing(2);
 			}
-			
+
 			gallery.setAdapter(new GalleryImageAdapter(this, images));
 			textTitle = (TextView) findViewById(R.id.textView1);
 			SpannableString spanString = new SpannableString(
@@ -135,16 +194,15 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 					spanString.length(), 0);
 			spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0,
 					spanString.length(), 0);
-			//textUri = (TextView) findViewById(R.id.textView3);
+			textUri = (TextView) findViewById(R.id.textView3);
 			// buttonPlay = (ImageButton) findViewById(R.id.button1);
 			// buttonStop = (ImageButton) findViewById(R.id.button2);
 			// buttonPlay.setBackgroundResource(R.drawable.play);
 			// buttonStop.setBackgroundResource(R.drawable.pause);
-			textDescription = (TextView) findViewById(R.id.textView2);
 
 			textTitle.setText(title);
 			textDescription.setText(description + "\n\n");
-			//textUri.setText(spanString);
+			textUri.setText(spanString);
 
 			mMediaPlayer = new MediaPlayer();
 			mMediaController = new MediaController(this);
@@ -175,8 +233,104 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			toast.show();
 			onBackPressed();
 		}
-		
+
 		enableGpsModal(prefix);
+	}
+
+	private final class ResponseListener implements DialogListener {
+		@Override
+		public void onComplete(Bundle values) {
+
+			// Variable to receive message status
+			Log.d("Share-Bar", "Authentication Successful");
+
+			// Get name of provider after authentication
+			final String providerName = values
+					.getString(SocialAuthAdapter.PROVIDER);
+			Log.d("Share-Bar", "Provider Name = " + providerName);
+			// Toast.makeText(InfoActivity.this, providerName + " connected",
+			// Toast.LENGTH_SHORT).show();
+			// call to update on all connected providers at once
+			adapter.updateStatus(
+					getString(getResources().getIdentifier("welcome" + prefix,
+							"string", getPackageName()))
+							+ textTitle.getText().toString()
+							+ "\nDownload application from https://play.google.com/store/apps/details?id=com.ukrcastles",
+					new MessageListener(), false);
+
+			// Share via Email Intent
+			if (providerName.equalsIgnoreCase("share_mail")) {
+				Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
+						Uri.fromParts("mailto", "", null));
+				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+						"I like this application 'Castles of Ukraine'");
+				emailIntent
+						.putExtra(
+								android.content.Intent.EXTRA_TEXT,
+								"Visit our page on https://play.google.com/store/apps/details?id=com.ukrcastles");
+
+				Uri uri = Uri.parse("android.resource://com.ukrcastles/"
+						+ R.drawable.ic_launcher);
+				emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+				startActivity(Intent.createChooser(emailIntent, "Email"));
+			}
+
+			// Share via mms intent
+			if (providerName.equalsIgnoreCase("share_mms")) {
+				File file = new File(
+						Environment
+								.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+						"image5964402.png");
+				Uri uri = Uri.fromFile(file);
+
+				Intent mmsIntent = new Intent(Intent.ACTION_SEND, uri);
+				mmsIntent.putExtra("sms_body", "Test");
+				mmsIntent.putExtra(Intent.EXTRA_STREAM, uri);
+				mmsIntent.setType("image/png");
+				startActivity(mmsIntent);
+			}
+		}
+
+		@Override
+		public void onError(SocialAuthError error) {
+			error.printStackTrace();
+			Log.d("Share-Bar", error.getMessage());
+		}
+
+		@Override
+		public void onCancel() {
+			Log.d("Share-Bar", "Authentication Cancelled");
+		}
+
+		@Override
+		public void onBack() {
+			Log.d("Share-Bar", "Dialog Closed by pressing Back Key");
+
+		}
+	}
+
+	// To get status of message after authentication
+	private final class MessageListener implements SocialAuthListener<Integer> {
+		@Override
+		public void onExecute(String provider, Integer t) {
+			Integer status = t;
+			if (status.intValue() == 200 || status.intValue() == 201
+					|| status.intValue() == 204)
+				Toast.makeText(InfoActivity.this,
+						"Message posted on " + provider, Toast.LENGTH_LONG)
+						.show();
+			else {
+				Toast.makeText(InfoActivity.this,
+						"Message not posted on" + provider, Toast.LENGTH_LONG)
+						.show();
+			}
+		}
+
+		@Override
+		public void onError(SocialAuthError e) {
+			Toast.makeText(InfoActivity.this, "Error " + e, Toast.LENGTH_LONG)
+					.show();
+		}
 	}
 
 	@Override
@@ -301,12 +455,22 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-//	public void goToMap(View v) {
-//		if (Build.VERSION.SDK_INT <= 15) {
-//			Intent i = new Intent(InfoActivity.this, RoutActivity.class);
-//			i.putExtra("title", textTitle.getText());
-//			startActivity(i);
-//		}
-//	}
+	public void zoomIn(View v) {
+		float size = textDescription.getTextSize();
+		textDescription.setTextSize(TypedValue.COMPLEX_UNIT_PX, size + 2);
+	}
+
+	public void zoomOut(View v) {
+		float size = textDescription.getTextSize();
+		textDescription.setTextSize(TypedValue.COMPLEX_UNIT_PX, size - 2);
+	}
+
+	// public void goToMap(View v) {
+	// if (Build.VERSION.SDK_INT <= 15) {
+	// Intent i = new Intent(InfoActivity.this, RoutActivity.class);
+	// i.putExtra("title", textTitle.getText());
+	// startActivity(i);
+	// }
+	// }
 
 }

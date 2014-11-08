@@ -68,13 +68,14 @@ public class StartActivity extends BaseActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		MenuInflater inflater = getMenuInflater();
-		if(prefs.getString("isNew", "2").equals("3"))
-		{
-			inflater.inflate(R.menu.menu_app, menu);	
-		}
-		else{
-			inflater.inflate(R.menu.menu_app_notif, menu);
-		}
+//		if(prefs.getString("isNew", "2").equals("3"))
+//		{
+//			inflater.inflate(R.menu.menu_app, menu);	
+//		}
+//		else{
+//			inflater.inflate(R.menu.menu_app_notif, menu);
+//		}
+		inflater.inflate(R.menu.menu_app, menu);	
 		menu.add(
 				0,
 				MAIN_MENU_ID,

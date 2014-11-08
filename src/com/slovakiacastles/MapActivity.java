@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.slovakiacastles.PictureEditor;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -34,6 +35,10 @@ import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -253,36 +258,36 @@ public class MapActivity extends FragmentActivity {
 						.split(",")[0]), Double.parseDouble(coordinates
 						.split(",")[1]));
 
-				// Drawable d= getResources().getDrawable(getResources()
-				// .getIdentifier("drawable/" + image, null,
-				// getPackageName()));
-				// d.setLevel(1234);
-				// BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
-				// BitmapFactory.Options o = new BitmapFactory.Options();
-				// o.inJustDecodeBounds = true;
-				// Bitmap b=bd.getBitmap();
-				//
-				// Bitmap bhalfsize=Bitmap.createScaledBitmap(b,
-				// b.getWidth()/15,b.getHeight()/15, false);
+				Drawable d= getResources().getDrawable(getResources()
+						 .getIdentifier("drawable/ico_" + image, null,
+						 getPackageName()));
+						 d.setLevel(1234);
+						 BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
+						 BitmapFactory.Options o = new BitmapFactory.Options();
+						 o.inJustDecodeBounds = true;
+						 Bitmap b=bd.getBitmap();
+						
+						 Bitmap bhalfsize=Bitmap.createScaledBitmap(b,
+						 b.getWidth()/2,b.getHeight()/2, false);
 
-				map.addMarker(new MarkerOptions()
-						.title(name + " - " + distance)
-						.snippet(
-								description.substring(0, 20)
-										+ "...\n("
-										+ getString(getResources()
-												.getIdentifier(
-														"touch_here" + prefix,
-														"string",
-														getPackageName()))
-										+ ")")
-						// .icon(BitmapDescriptorFactory.fromBitmap(bhalfsize)).anchor(0.0f,
-						// 1.0f)
-						.icon(BitmapDescriptorFactory
-								.fromResource(getResources().getIdentifier(
-										"drawable/ico_" + image, null,
-										getPackageName()))).anchor(0.0f, 1.0f)
-						.position(coord));
+							map.addMarker(new MarkerOptions()
+							.title(name + " - " + distance)
+							.snippet(
+									description.substring(0, 20)
+											+ "...\n("
+											+ getString(getResources()
+													.getIdentifier(
+															"touch_here" + prefix,
+															"string",
+															getPackageName()))
+											+ ")")
+							.icon(BitmapDescriptorFactory.fromBitmap(PictureEditor.getRoundedCornerBitmap(bhalfsize, 50))).anchor(0.0f,
+							 1.0f)
+//							.icon(BitmapDescriptorFactory
+//									.fromResource(getResources().getIdentifier(
+//											"drawable/ico_" + image, null,
+//											getPackageName()))).anchor(0.0f, 1.0f)
+							.position(coord));
 
 			}
 

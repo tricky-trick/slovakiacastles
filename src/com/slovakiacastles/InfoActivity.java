@@ -254,8 +254,8 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			adapter.updateStatus(
 					getString(getResources().getIdentifier("welcome" + prefix,
 							"string", getPackageName()))
-							+ textTitle.getText().toString()
-							+ "\nDownload application from https://play.google.com/store/apps/details?id=com.ukrcastles",
+							+ " " + textTitle.getText().toString()
+							+ "\nDownload application from https://play.google.com/store/apps/details?id=" + getPackageName(),
 					new MessageListener(), false);
 
 			// Share via Email Intent
@@ -263,13 +263,13 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 				Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
 						Uri.fromParts("mailto", "", null));
 				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-						"I like this application 'Castles of Ukraine'");
+						"I like this application '" + getResources().getString(R.string.app_name)+ "'");
 				emailIntent
 						.putExtra(
 								android.content.Intent.EXTRA_TEXT,
-								"Visit our page on https://play.google.com/store/apps/details?id=com.ukrcastles");
+								"Visit our page on " + "https://play.google.com/store/apps/details?id=" + getPackageName());
 
-				Uri uri = Uri.parse("android.resource://com.ukrcastles/"
+				Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"
 						+ R.drawable.ic_launcher);
 				emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
 				startActivity(Intent.createChooser(emailIntent, "Email"));

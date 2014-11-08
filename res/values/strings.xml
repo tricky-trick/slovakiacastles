@@ -38,7 +38,7 @@
     <string name="about_message_ua">Дякуємо, що користуєтеся нашою програмою. Надіємося, що вона Вам подобається. Якщо у Вас є відгуки, побажання чи зауваження, то Ви можете написати їх на електронну адресу </string>
     <string name="about_second_ua"> або через соціальні мережі </string>
     <string name="empty_info_ua">Вибачте, але наразі інформація на даній мові  є відсутня. Будь ласка, очікуйте оновлень в наступних версіях.</string>
-    <string name="welcome_ua">Звітайте в  </string>
+    <string name="welcome_ua">Звітайте в</string>
     <!-- Slovak -->
      <string name="add_place_string_sk">Klikni pre pridanie miesto</string>
     <string name="dialog_title_string_sk">Nezatvárajte program</string>
@@ -67,7 +67,7 @@
     <string name="about_message_sk">Ďakujeme, že používate náš softvér. Dúfame, že sa vám bude páčiť. Ak máte nejaké pripomienky, návrhy alebo pripomienky, môžete kontaktovať prostredníctvom e-mailu </string>
     <string name="about_second_sk"> alebo prostredníctvom sociálnych sietí </string>
     <string name="empty_info_sk">Ospravedlňujeme sa, ale v súčasnej dobe informácie o tomto jazyku nie je k dispozícii. Prosím očakávajú aktualizácie v budúcej verzii.</string>
-    <string name="welcome_sk">Vitajte na  </string>
+    <string name="welcome_sk">Vitajte na</string>
     <!-- Hungarian -->
     <string name="add_place_string_hu">Kattintson ide, hogy egy helyre</string>
     <string name="dialog_title_string_hu">Ne zárja be a programot</string>
@@ -95,7 +95,7 @@
     <string name="about_menu_hu">Rólunk</string>
     <string name="about_message_hu">Köszönjük, hogy a szoftver. Reméljük, hogy tetszeni fog. Ha bármilyen észrevétele, javaslata, észrevétele van, kapcsolatba léphet velük e-mailben </string>
     <string name="about_second_hu"> vagy a szociális hálózatok </string>
-    <string name="welcome_hu">Üdvözöljük a  </string>
+    <string name="welcome_hu">Üdvözöljük a</string>
     <string name="empty_info_hu">Sajnáljuk, jelenleg információkat ezen a nyelven nem elérhető. Kérjük, várják a frissítéseket a következő verzió.</string>
     <!-- Polish -->
     <string name="add_place_string_pl">Kliknij tutaj, aby dodać miejsce</string>
@@ -125,7 +125,7 @@
     <string name="about_message_pl">Dziękujemy za korzystanie z naszego oprogramowania. Mamy nadzieję, że сi się spodoba. Jeśli masz jakieś uwagi, sugestie lub komentarze, można się z nami skontaktować przez e-mail </string>
     <string name="about_second_pl"> lub za pośrednictwem sieci społecznych </string>
     <string name="empty_info_pl">Niestety, obecnie informacji o tym języku nie jest dostępna. Proszę spodziewać się aktualizacji do nowej wersji.</string>
-    <string name="welcome_pl">Odwiedź  </string>
+    <string name="welcome_pl">Odwiedź</string>
     <!-- English -->
     <string name="add_place_string_en">Click here to add new place</string>
     <string name="dialog_title_string_en">Don\'t close application</string>
@@ -156,5 +156,5 @@
 	<string name="about_message_en">Thank you for using our application. We hope you enjoy. If you have any comments or suggestions, you can contact us by e-mail </string>
 	<string name="about_second_en"> or via social network </string>
 	<string name="empty_info_en">Sorry, currently information on this language is not available. Please expect updates in the next version.</string>
-	<string name="welcome_en">Welcome to  </string>
+	<string name="welcome_en">Welcome to</string>
 </resources>
